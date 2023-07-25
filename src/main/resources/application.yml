@@ -1,0 +1,25 @@
+spring:
+  application:
+    name: API-SERVICE
+  config:
+    import: optional:configserver:http://localhost:8500/
+  cloud:
+    gateway:
+      routes:
+        - id: EMPLOYEE-SERVICE
+          uri: lb://EMPLOYEE-SERVICE
+          predicates:
+            - Path=/employees/**
+        - id: DEPARTMENT-SERVICE
+          uri: lb://DEPARTMENT-SERVICE
+          predicates:
+            - Path=/departments/**
+
+
+
+
+  instance:
+    hostname: localhost
+server:
+  port: 8300
+
